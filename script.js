@@ -1,8 +1,9 @@
 // 불티 생성
 (() => {
   const ash = document.querySelector('.ash');
-  if (!ash || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const n = innerWidth < 640 ? 12 : 24;
+  // 모바일·터치 기기와 동작 줄이기 설정에서는 불티를 만들지 않음
+  if (!ash || matchMedia('(prefers-reduced-motion: reduce), (max-width: 768px), (pointer: coarse)').matches) return;
+  const n = 24;
   for (let i = 0; i < n; i++) {
     const p = document.createElement('i');
     const s = Math.random() * 3 + 1;

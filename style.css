@@ -32,11 +32,14 @@ body {
 
 .moon {
   position: fixed; z-index: -5;
-  top: 9vh; right: 12vw;
+  top: 9vh; top: 9lvh; right: 12vw;
   width: 110px; height: 110px; border-radius: 50%;
   background: radial-gradient(circle at 40% 40%, #ffe9e9, #ff8a8a 55%, #8f1026 100%);
-  box-shadow: 0 0 60px 20px rgba(255, 46, 77, .35), 0 0 160px 60px rgba(196, 18, 47, .2);
   opacity: .85;
+}
+.moon::before {
+  content: ""; position: absolute; inset: -120px; border-radius: 50%; z-index: -1;
+  background: radial-gradient(circle, rgba(255, 46, 77, .4) 0%, rgba(196, 18, 47, .15) 35%, transparent 70%);
 }
 
 /* 장막 (帳) — 하늘을 덮는 검은 돔 */
@@ -58,7 +61,7 @@ body {
 
 .city {
   position: fixed; z-index: -3;
-  left: 0; bottom: 0; width: 100%; height: 48vh;
+  left: 0; bottom: 0; width: 100%; height: 48vh; height: 48lvh;
 }
 .city .screen {
   fill: #ff2e4d; opacity: .5;
@@ -70,6 +73,8 @@ body {
 }
 .city .sign.red { fill: #ff4d64; font-size: 28px; font-family: "Black Han Sans", sans-serif; }
 
+.sky, .moon, .city { transform: translateZ(0); backface-visibility: hidden; }
+
 /* 재 / 불티 */
 .ash { position: fixed; inset: 0; z-index: -2; pointer-events: none; }
 .ash i {
@@ -80,7 +85,7 @@ body {
   animation: fall linear infinite;
 }
 @keyframes fall {
-  to { transform: translate3d(var(--dx, 30px), 110vh, 0); }
+  to { transform: translate3d(var(--dx, 30px), 110lvh, 0); }
 }
 
 /* ---------- 상단 ---------- */
@@ -186,6 +191,41 @@ main { width: min(1100px, 92vw); margin: 0 auto; }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .warn p { margin-top: 28px; color: var(--muted); letter-spacing: .1em; }
 
+/* ---------- 후원 ---------- */
+.support {
+  position: relative; margin: 0 auto 8vh; max-width: 600px; text-align: center;
+  padding: 36px clamp(18px, 5vw, 40px) 40px;
+  background: #0b0714; border: 1px solid rgba(140, 90, 255, .3);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, .6);
+}
+.support h2 {
+  font-family: "Black Han Sans", sans-serif; font-weight: 400;
+  font-size: clamp(28px, 6vw, 40px); letter-spacing: .1em; color: #fff;
+}
+.support h2 span {
+  display: block; margin-bottom: 6px;
+  font-family: "Noto Serif JP", serif; font-size: 13px; letter-spacing: .5em; color: #ff8a9a;
+}
+.support .desc { margin: 12px 0 24px; color: var(--muted); font-size: 15px; line-height: 1.8; }
+.support-card {
+  display: flex; align-items: center; gap: 18px; text-align: left;
+  padding: 20px 22px; text-decoration: none; color: var(--text);
+  background: #0e0918; border: 1px solid rgba(255, 46, 77, .5);
+  box-shadow: 0 0 0 1px rgba(140, 90, 255, .2), 0 10px 30px rgba(0, 0, 0, .5);
+  transition: transform .2s, border-color .2s;
+}
+.support-card:hover, .support-card:focus-visible { transform: translateY(-3px); border-color: var(--neon); }
+.support-card .seal {
+  flex: none; display: grid; place-items: center;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: var(--blood); color: #fff;
+  font-family: "Black Han Sans", sans-serif; font-size: 22px;
+}
+.support-card .body { flex: 1; min-width: 0; }
+.support-card strong { display: block; font-family: "Black Han Sans", sans-serif; font-weight: 400; font-size: 24px; letter-spacing: .05em; }
+.support-card small { display: block; margin-top: 4px; color: var(--muted); font-size: 13px; word-break: break-all; }
+.support-card .arrow { flex: none; font-size: 22px; color: var(--neon); }
+
 footer {
   text-align: center; padding: 30px 0 40px;
   font-size: 12px; letter-spacing: .3em; color: #5d5470;
@@ -199,9 +239,19 @@ body.playing .tape span,
 body.playing .caption .dot { animation-play-state: paused; }
 body.playing .ash { visibility: hidden; }
 
+/* 모바일·터치 기기: 무거운 효과 끄기 */
+@media (max-width: 768px), (pointer: coarse) {
+  .ash, .title::before, .title::after { display: none; }
+  .veil { animation: none; width: 1400px; height: 900px; bottom: -560px; }
+  .title { text-shadow: 0 0 14px rgba(255, 46, 77, .7); }
+  .frame { box-shadow: 0 0 0 1px rgba(255, 46, 77, .15), 0 0 30px rgba(107, 43, 217, .25); }
+  .moon::before { inset: -60px; }
+  .support-card { transition: none; }
+}
+
 @media (max-width: 640px) {
   .moon { width: 56px; height: 56px; top: 64px; right: 5vw; opacity: .6; }
-  .city { height: 34vh; }
+  .city { height: 34vh; height: 34lvh; }
   .top { font-size: 11px; }
 }
 
