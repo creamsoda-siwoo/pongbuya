@@ -2,7 +2,7 @@
 (() => {
   const ash = document.querySelector('.ash');
   if (!ash || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const n = innerWidth < 640 ? 25 : 55;
+  const n = innerWidth < 640 ? 12 : 24;
   for (let i = 0; i < n; i++) {
     const p = document.createElement('i');
     const s = Math.random() * 3 + 1;
@@ -12,10 +12,7 @@
     p.style.animationDuration = (Math.random() * 10 + 8).toFixed(1) + 's';
     p.style.animationDelay = (-Math.random() * 18).toFixed(1) + 's';
     p.style.setProperty('--dx', (Math.random() * 120 - 60).toFixed(0) + 'px');
-    if (Math.random() < 0.3) {
-      p.style.background = '#b18cff';
-      p.style.boxShadow = '0 0 6px #8c5aff';
-    }
+    if (Math.random() < 0.3) p.style.background = '#b18cff';
     ash.appendChild(p);
   }
 })();
@@ -35,39 +32,10 @@
   setInterval(tick, 1000);
 })();
 
-// 화질 선택 — 데이터 절약 모드/느린 회선/작은 화면이면 360p 기본
+// 영상 재생 중에는 배경 효과를 멈춰 버벅임 방지
 (() => {
   const video = document.getElementById('film');
-  const buttons = document.querySelectorAll('.quality button');
   if (!video) return;
-  const SRC = { 360: '/media/pongbuya-360.mp4', 720: '/media/pongbuya-720.mp4' };
-  const conn = navigator.connection || {};
-  const slow = conn.saveData || /(^|-)2g|3g/.test(conn.effectiveType || '');
-  const saved = localStorage.getItem('pongbuya-quality');
-  let q = saved in SRC ? saved : (slow || innerWidth < 720 ? '360' : '720');
-
-  const apply = (next, keepTime) => {
-    const t = video.currentTime;
-    const playing = !video.paused;
-    q = next;
-    video.src = SRC[q];
-    if (keepTime && t > 0) {
-      video.preload = 'auto';
-      video.addEventListener('loadedmetadata', () => {
-        video.currentTime = t;
-        if (playing) video.play();
-      }, { once: true });
-      video.load();
-    }
-    buttons.forEach((b) => b.setAttribute('aria-pressed', b.dataset.q === q));
-  };
-
-  apply(q, false);
-  buttons.forEach((b) =>
-    b.addEventListener('click', () => {
-      if (b.dataset.q === q) return;
-      localStorage.setItem('pongbuya-quality', b.dataset.q);
-      apply(b.dataset.q, true);
-    })
-  );
+  const set = () => document.body.classList.toggle('playing', !video.paused && !video.ended);
+  ['play', 'pause', 'ended'].forEach((e) => video.addEventListener(e, set));
 })();
