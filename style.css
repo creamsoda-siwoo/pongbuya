@@ -1,0 +1,223 @@
+*,
+*::before,
+*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #07060d;
+  --blood: #c4122f;
+  --neon: #ff2e4d;
+  --violet: #6b2bd9;
+  --cursed: #3a1b6e;
+  --text: #ece6f5;
+  --muted: #9d93b3;
+}
+
+html, body { min-height: 100%; }
+
+body {
+  background: var(--ink);
+  color: var(--text);
+  font-family: "Noto Serif KR", serif;
+  overflow-x: hidden;
+}
+
+/* ---------- 배경 ---------- */
+.sky {
+  position: fixed; inset: 0; z-index: -6;
+  background:
+    radial-gradient(120% 70% at 50% 110%, rgba(196, 18, 47, .45), transparent 60%),
+    radial-gradient(80% 60% at 15% 20%, rgba(107, 43, 217, .25), transparent 70%),
+    linear-gradient(#05040a 0%, #0d0819 45%, #1a0b1e 80%, #2b0a14 100%);
+}
+
+.moon {
+  position: fixed; z-index: -5;
+  top: 9vh; right: 12vw;
+  width: 110px; height: 110px; border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #ffe9e9, #ff8a8a 55%, #8f1026 100%);
+  box-shadow: 0 0 60px 20px rgba(255, 46, 77, .35), 0 0 160px 60px rgba(196, 18, 47, .2);
+  opacity: .85;
+}
+
+/* 장막 (帳) — 하늘을 덮는 검은 돔 */
+.veil {
+  position: fixed; z-index: -4;
+  left: 50%; bottom: -55vmax;
+  width: 190vmax; height: 120vmax;
+  transform: translateX(-50%);
+  border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+  background:
+    radial-gradient(ellipse at 50% 100%, transparent 40%, rgba(0, 0, 0, .55) 70%, rgba(0, 0, 0, .9) 100%);
+  border-top: 2px solid rgba(140, 90, 255, .35);
+  box-shadow: inset 0 30px 80px rgba(107, 43, 217, .25), 0 -10px 60px rgba(107, 43, 217, .25);
+  animation: veilDrop 4s cubic-bezier(.2, .7, .2, 1) both, veilPulse 6s ease-in-out 4s infinite;
+}
+@keyframes veilDrop {
+  from { bottom: 40vh; opacity: 0; }
+  to   { bottom: -55vmax; opacity: 1; }
+}
+@keyframes veilPulse {
+  0%, 100% { border-top-color: rgba(140, 90, 255, .35); }
+  50%      { border-top-color: rgba(255, 46, 77, .45); }
+}
+
+.city {
+  position: fixed; z-index: -3;
+  left: 0; bottom: 0; width: 100%; height: 48vh;
+}
+.city .screen {
+  fill: #ff2e4d; opacity: .55;
+  filter: drop-shadow(0 0 12px #ff2e4d);
+  animation: flicker 3.2s infinite steps(1);
+}
+.city .screen.s2 { fill: #8c5aff; filter: drop-shadow(0 0 12px #8c5aff); animation-delay: 1.1s; }
+.city .sign {
+  font-family: "Noto Serif JP", serif; font-weight: 900; font-size: 34px;
+  fill: #ffd7de; filter: drop-shadow(0 0 8px #ff2e4d);
+}
+.city .sign.red { fill: #ff4d64; font-size: 28px; font-family: "Black Han Sans", sans-serif; }
+@keyframes flicker {
+  0%, 18%, 22%, 60%, 100% { opacity: .55; }
+  20%, 61% { opacity: .1; }
+}
+
+/* 재 / 불티 */
+.ash { position: fixed; inset: 0; z-index: -2; pointer-events: none; }
+.ash i {
+  position: absolute; top: -5vh;
+  width: 3px; height: 3px; border-radius: 50%;
+  background: #ff6b7f; box-shadow: 0 0 6px #ff2e4d;
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  to { transform: translate3d(var(--dx, 30px), 110vh, 0); opacity: 0; }
+}
+
+.grain {
+  position: fixed; inset: -50%; z-index: 50; pointer-events: none; opacity: .06;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation: grain 1s steps(4) infinite;
+}
+@keyframes grain {
+  0% { transform: translate(0, 0); } 25% { transform: translate(-5%, 3%); }
+  50% { transform: translate(4%, -4%); } 75% { transform: translate(-3%, -2%); }
+}
+
+/* ---------- 상단 ---------- */
+.top {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px clamp(16px, 4vw, 48px);
+  font-size: 13px; letter-spacing: .2em; color: var(--muted);
+}
+.tag {
+  font-family: "Noto Serif JP", serif; color: #fff;
+  background: var(--blood); padding: 4px 10px;
+}
+.clock { font-variant-numeric: tabular-nums; color: #ff8a9a; }
+
+/* ---------- 히어로 ---------- */
+main { width: min(1100px, 92vw); margin: 0 auto; }
+
+.hero { text-align: center; padding: 6vh 0 4vh; }
+.pre {
+  font-family: "Noto Serif JP", serif; letter-spacing: .5em;
+  color: #b9a3ff; font-size: 14px; margin-bottom: 18px;
+  animation: fadeUp 1.2s .8s both;
+}
+.title {
+  position: relative; display: inline-block;
+  font-family: "Black Han Sans", sans-serif; font-weight: 400;
+  font-size: clamp(56px, 13vw, 168px); line-height: 1;
+  color: #fff;
+  text-shadow: 0 0 18px rgba(255, 46, 77, .8), 0 0 60px rgba(196, 18, 47, .6);
+  animation: fadeUp 1.4s 1.2s both;
+}
+.title::before,
+.title::after {
+  content: attr(data-text);
+  position: absolute; inset: 0;
+  pointer-events: none;
+}
+.title::before { color: var(--neon); mix-blend-mode: screen; animation: glitch 4s infinite; }
+.title::after  { color: #8c5aff;    mix-blend-mode: screen; animation: glitch 4s .15s infinite reverse; }
+@keyframes glitch {
+  0%, 88%, 100% { transform: none; clip-path: inset(0 0 0 0); opacity: 0; }
+  89% { transform: translate(-4px, 2px); clip-path: inset(10% 0 55% 0); opacity: .9; }
+  91% { transform: translate(5px, -2px); clip-path: inset(60% 0 8% 0); opacity: .9; }
+  93% { transform: translate(-2px, 0);  clip-path: inset(30% 0 40% 0); opacity: .9; }
+  95% { opacity: 0; }
+}
+.sub {
+  margin-top: 14px; letter-spacing: .6em; font-size: 14px; color: #ff8a9a;
+  animation: fadeUp 1.2s 1.6s both;
+}
+.lead {
+  margin-top: 26px; line-height: 1.9; color: var(--muted);
+  font-size: clamp(15px, 2vw, 18px);
+  animation: fadeUp 1.2s 2s both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); filter: blur(6px); }
+  to   { opacity: 1; transform: none; filter: none; }
+}
+
+/* ---------- 플레이어 ---------- */
+.player-wrap { animation: fadeUp 1.2s 2.4s both; }
+.frame {
+  position: relative; padding: 10px;
+  background: rgba(10, 6, 18, .7);
+  border: 1px solid rgba(140, 90, 255, .35);
+  box-shadow: 0 0 0 1px rgba(255, 46, 77, .15), 0 30px 80px rgba(0, 0, 0, .7), 0 0 80px rgba(107, 43, 217, .25);
+  backdrop-filter: blur(4px);
+}
+.frame video {
+  display: block; width: 100%; height: auto;
+  aspect-ratio: 1280 / 758; background: #000;
+}
+.corner { position: absolute; width: 22px; height: 22px; border: 2px solid var(--neon); }
+.corner.tl { top: -2px; left: -2px; border-right: 0; border-bottom: 0; }
+.corner.tr { top: -2px; right: -2px; border-left: 0; border-bottom: 0; }
+.corner.bl { bottom: -2px; left: -2px; border-right: 0; border-top: 0; }
+.corner.br { bottom: -2px; right: -2px; border-left: 0; border-top: 0; }
+
+.caption {
+  display: flex; gap: 12px; align-items: center; justify-content: center;
+  margin-top: 16px; font-size: 13px; letter-spacing: .25em; color: var(--muted);
+}
+.caption span:first-child { font-family: "Noto Serif JP", serif; color: #ff8a9a; }
+.caption .dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--neon);
+  box-shadow: 0 0 10px var(--neon); animation: rec 1.2s infinite;
+}
+@keyframes rec { 50% { opacity: .2; } }
+
+/* ---------- 경고 테이프 ---------- */
+.warn { margin: 10vh 0 6vh; text-align: center; }
+.tape {
+  overflow: hidden; white-space: nowrap;
+  background: repeating-linear-gradient(-45deg, #f5c400 0 18px, #111 18px 36px);
+  transform: rotate(-2deg); padding: 6px 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .6);
+}
+.tape span {
+  display: inline-block; background: #f5c400; color: #111;
+  font-family: "Black Han Sans", sans-serif; font-size: 18px; letter-spacing: .15em;
+  padding: 4px 0; animation: marquee 18s linear infinite;
+}
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.warn p { margin-top: 28px; color: var(--muted); letter-spacing: .1em; }
+
+footer {
+  text-align: center; padding: 30px 0 40px;
+  font-size: 12px; letter-spacing: .3em; color: #5d5470;
+}
+
+@media (max-width: 640px) {
+  .moon { width: 56px; height: 56px; top: 64px; right: 5vw; opacity: .6; }
+  .city { height: 34vh; }
+  .top { font-size: 11px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; }
+}

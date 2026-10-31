@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>퐁부야 사변</title>
+<meta name="description" content="퐁부야 사변 — 10.31, 장막이 내려앉은 밤." />
+<meta property="og:title" content="퐁부야 사변" />
+<meta property="og:description" content="10.31, 장막이 내려앉은 밤." />
+<meta property="og:image" content="/media/poster.jpg" />
+<meta name="theme-color" content="#07060d" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Serif+KR:wght@400;900&family=Noto+Serif+JP:wght@900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <!-- 배경 레이어 -->
+  <div class="sky" aria-hidden="true"></div>
+  <div class="moon" aria-hidden="true"></div>
+  <div class="veil" aria-hidden="true"></div>
+  <svg class="city" viewBox="0 0 1600 420" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="bldg" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#14111f" />
+        <stop offset="1" stop-color="#050409" />
+      </linearGradient>
+      <pattern id="win" width="14" height="18" patternUnits="userSpaceOnUse">
+        <rect x="3" y="4" width="5" height="7" fill="#ffcf6b" opacity=".18" />
+      </pattern>
+    </defs>
+    <g fill="url(#bldg)">
+      <rect x="0" y="170" width="120" height="250" />
+      <rect x="110" y="110" width="90" height="310" />
+      <rect x="195" y="210" width="140" height="210" />
+      <rect x="330" y="60" width="110" height="360" />
+      <rect x="435" y="190" width="80" height="230" />
+      <rect x="510" y="140" width="160" height="280" />
+      <rect x="665" y="230" width="100" height="190" />
+      <rect x="760" y="30" width="120" height="390" />
+      <rect x="875" y="170" width="130" height="250" />
+      <rect x="1000" y="100" width="95" height="320" />
+      <rect x="1090" y="220" width="150" height="200" />
+      <rect x="1235" y="80" width="110" height="340" />
+      <rect x="1340" y="180" width="120" height="240" />
+      <rect x="1455" y="130" width="145" height="290" />
+    </g>
+    <g fill="url(#win)">
+      <rect x="110" y="120" width="90" height="300" />
+      <rect x="330" y="70" width="110" height="350" />
+      <rect x="510" y="150" width="160" height="270" />
+      <rect x="760" y="40" width="120" height="380" />
+      <rect x="1000" y="110" width="95" height="310" />
+      <rect x="1235" y="90" width="110" height="330" />
+      <rect x="1455" y="140" width="145" height="280" />
+    </g>
+    <!-- 대형 전광판 -->
+    <rect class="screen" x="520" y="170" width="140" height="80" />
+    <rect class="screen s2" x="1245" y="110" width="90" height="60" />
+    <text class="sign" x="790" y="90">渋谷</text>
+    <text class="sign red" x="1010" y="150">109</text>
+  </svg>
+  <div class="ash" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="top">
+    <span class="tag">特級案件</span>
+    <span class="clock" id="clock">2018.10.31 &nbsp;19:00</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="pre">— 帳が下りる —</p>
+      <h1 class="title" data-text="퐁부야 사변">퐁부야 사변</h1>
+      <p class="sub">PONGBUYA INCIDENT</p>
+      <p class="lead">10월 31일, 할로윈의 밤.<br />퐁부야 한복판에 장막이 내려앉았다.</p>
+    </section>
+
+    <section class="player-wrap">
+      <div class="frame">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+        <video id="film" controls playsinline preload="metadata" poster="/media/poster.jpg">
+          <source src="/media/pongbuya.mp4" type="video/mp4" />
+          브라우저가 동영상 재생을 지원하지 않습니다.
+        </video>
+      </div>
+      <div class="caption">
+        <span>記録映像</span>
+        <span class="dot"></span>
+        <span>퐁부야 사변 · 1:31</span>
+      </div>
+    </section>
+
+    <section class="warn">
+      <div class="tape"><span>KEEP OUT · 立入禁止 · 출입금지 · KEEP OUT · 立入禁止 · 출입금지 · KEEP OUT · 立入禁止 · 출입금지 · KEEP OUT · 立入禁止 · 출입금지 · </span></div>
+      <p>일반인은 장막 안으로 들어올 수 없습니다.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>퐁부야 사변 — 10.31</p>
+  </footer>
+
+  <script src="/script.js"></script>
+</body>
+</html>
