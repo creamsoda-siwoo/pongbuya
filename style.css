@@ -216,10 +216,11 @@ main { width: min(1100px, 92vw); margin: 0 auto; }
 }
 .support-card:hover, .support-card:focus-visible { transform: translateY(-3px); border-color: var(--neon); }
 .support-card .seal {
-  flex: none; display: grid; place-items: center;
-  width: 58px; height: 58px; border-radius: 50%;
-  background: var(--blood); color: #fff;
-  font-family: "Black Han Sans", sans-serif; font-size: 22px;
+  flex: none; display: block;
+  width: 80px; height: 80px; object-fit: contain;
+  padding: 6px; border-radius: 50%;
+  background: radial-gradient(circle, #fff6d6 0%, #ffe9a8 60%, #f3c96b 100%);
+  box-shadow: 0 0 0 2px var(--blood);
 }
 .support-card .body { flex: 1; min-width: 0; }
 .support-card strong { display: block; font-family: "Black Han Sans", sans-serif; font-weight: 400; font-size: 24px; letter-spacing: .05em; }
