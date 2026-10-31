@@ -34,3 +34,40 @@
   tick();
   setInterval(tick, 1000);
 })();
+
+// 화질 선택 — 데이터 절약 모드/느린 회선/작은 화면이면 360p 기본
+(() => {
+  const video = document.getElementById('film');
+  const buttons = document.querySelectorAll('.quality button');
+  if (!video) return;
+  const SRC = { 360: '/media/pongbuya-360.mp4', 720: '/media/pongbuya-720.mp4' };
+  const conn = navigator.connection || {};
+  const slow = conn.saveData || /(^|-)2g|3g/.test(conn.effectiveType || '');
+  const saved = localStorage.getItem('pongbuya-quality');
+  let q = saved in SRC ? saved : (slow || innerWidth < 720 ? '360' : '720');
+
+  const apply = (next, keepTime) => {
+    const t = video.currentTime;
+    const playing = !video.paused;
+    q = next;
+    video.src = SRC[q];
+    if (keepTime && t > 0) {
+      video.preload = 'auto';
+      video.addEventListener('loadedmetadata', () => {
+        video.currentTime = t;
+        if (playing) video.play();
+      }, { once: true });
+      video.load();
+    }
+    buttons.forEach((b) => b.setAttribute('aria-pressed', b.dataset.q === q));
+  };
+
+  apply(q, false);
+  buttons.forEach((b) =>
+    b.addEventListener('click', () => {
+      if (b.dataset.q === q) return;
+      localStorage.setItem('pongbuya-quality', b.dataset.q);
+      apply(b.dataset.q, true);
+    })
+  );
+})();

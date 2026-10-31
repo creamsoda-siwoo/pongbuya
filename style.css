@@ -191,6 +191,19 @@ main { width: min(1100px, 92vw); margin: 0 auto; }
 }
 @keyframes rec { 50% { opacity: .2; } }
 
+.quality { display: flex; justify-content: center; gap: 10px; margin-top: 16px; }
+.quality button {
+  font: inherit; font-size: 13px; letter-spacing: .08em; cursor: pointer;
+  color: var(--muted); background: rgba(10, 6, 18, .7);
+  border: 1px solid rgba(140, 90, 255, .35); padding: 8px 14px;
+  transition: color .2s, border-color .2s, box-shadow .2s;
+}
+.quality button small { margin-left: 6px; opacity: .6; font-size: 11px; }
+.quality button:hover { color: var(--text); }
+.quality button[aria-pressed="true"] {
+  color: #fff; border-color: var(--neon); box-shadow: 0 0 14px rgba(255, 46, 77, .4);
+}
+
 /* ---------- 경고 테이프 ---------- */
 .warn { margin: 10vh 0 6vh; text-align: center; }
 .tape {
@@ -216,6 +229,8 @@ footer {
   .moon { width: 56px; height: 56px; top: 64px; right: 5vw; opacity: .6; }
   .city { height: 34vh; }
   .top { font-size: 11px; }
+  .quality button { flex: 1; padding: 8px 6px; }
+  .quality button small { display: block; margin: 2px 0 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

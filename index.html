@@ -80,8 +80,8 @@
       <div class="frame">
         <span class="corner tl"></span><span class="corner tr"></span>
         <span class="corner bl"></span><span class="corner br"></span>
-        <video id="film" controls playsinline preload="metadata" poster="/media/poster.jpg">
-          <source src="/media/pongbuya.mp4" type="video/mp4" />
+        <!-- preload="none": 재생 버튼을 누르기 전까지 영상 데이터를 받지 않음 -->
+        <video id="film" controls playsinline preload="none" poster="/media/poster.webp">
           브라우저가 동영상 재생을 지원하지 않습니다.
         </video>
       </div>
@@ -89,6 +89,10 @@
         <span>記録映像</span>
         <span class="dot"></span>
         <span>퐁부야 사변 · 1:31</span>
+      </div>
+      <div class="quality" role="group" aria-label="화질 선택">
+        <button type="button" data-q="360">데이터 절약 <small>360p · 2.6MB</small></button>
+        <button type="button" data-q="720">고화질 <small>720p · 5.9MB</small></button>
       </div>
     </section>
 
